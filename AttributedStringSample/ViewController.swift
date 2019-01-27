@@ -27,20 +27,21 @@ class ViewController: UIViewController, UITextViewDelegate {
         return false
     }
     
-    
     func attConverter(for text: String) -> NSMutableAttributedString {
         
-        let attString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font
-            : UIFont.boldSystemFont(ofSize: 14)])
-        let nsStringRange = (text as NSString!)?.range(of: "but also the leap into electronic typesetting")
-        attString.addAttribute(NSAttributedString.Key.underlineStyle, value: 2, range: nsStringRange!)
+        let font:UIFont?  = UIFont(name: "Helvetica", size: 16)
+        let attString = NSMutableAttributedString(string: text, attributes: [.font
+            : font!])
         
+    // 0 - underline the some characters
+        
+        let nsStringRange = (text as NSString).range(of: "but also the leap into electronic typesetting")
+            attString.addAttribute(NSAttributedString.Key.underlineStyle, value: 2, range: nsStringRange)
         
     // 1 - change the background color of "Dummy" words to yellow.
         
-        let changeBackgroundColorOfDummyWords = (text as NSString!)?.range(of: "dummy")
-        
-        attString.addAttribute(.backgroundColor, value: UIColor.yellow, range: changeBackgroundColorOfDummyWords!)
+        let changeBackgroundColorOfDummyWords = (text as NSString).range(of: "dummy")
+        attString.addAttribute(.backgroundColor, value: UIColor.yellow, range: changeBackgroundColorOfDummyWords)
         
     // 2 - after the "Lorem" word next ten characters should be superscripted(error handling).
         
@@ -50,18 +51,17 @@ class ViewController: UIViewController, UITextViewDelegate {
         
         attString.addAttributes([.font : fontSuper!, .baselineOffset:6], range: NSRange(location: 6, length: 10))
         
-        
     // 3 - "release" word should be hyperlinked and should navigate to apple.com
         
-        let findReleaseWord = (text as NSString!)?.range(of: "release")
+        let findReleaseWord = (text as NSString).range(of: "release")
         
-        attString.addAttribute(.link, value: "https://www.apple.com", range: findReleaseWord!)
+        attString.addAttribute(.link, value: "https://www.apple.com", range: findReleaseWord)
 
     //  4 - last but not least hide/delete some characters/integers
         
-        let findLorem = (text as NSString!)?.range(of: "1960s")
+        let findLorem = (text as NSString).range(of: "1960s")
         
-        attString.deleteCharacters(in: findLorem!)
+        attString.deleteCharacters(in: findLorem)
 
         return attString
     }
